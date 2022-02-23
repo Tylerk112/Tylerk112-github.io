@@ -6,18 +6,28 @@
 	<script src="jquery.min.js"></script>
 	<style>
 		.box {
+			background-image: url(https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/363558e4-1cf3-41c0-baa3-1cc5331116af/d5lqmzc-4aa9b9ed-7964-461d-9b31-38f441c809f7.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzM2MzU1OGU0LTFjZjMtNDFjMC1iYWEzLTFjYzUzMzExMTZhZlwvZDVscW16Yy00YWE5YjllZC03OTY0LTQ2MWQtOWIzMS0zOGY0NDFjODA5ZjcuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.JrSRtmlBtJrK_Wve9ayegqjc3iMlWijjWo38hyw5T3s);
+			background-repeat: no-repeat;
+			background-size: contain;
 			width: 70px;
 			height: 70px;
-			background-color: teal;
 			font-size: 300%;
 			text-align: center;
 			display: block;
 			position: absolute;
-			top: 100px;
-			left: 0px;  /* <--- Change me! */
+			top: 400px;
+			 left: 669px;  /*<--- Change me! */
+			
 		}
+
 		.board{
 			height: 100vh;
+			
+		}
+			body {
+		 	background-image: url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgICAgICAgHBwcHBwoHBwcHBw8ICQgKFREWFhURExMYKDQgGBolJxMfITEhJSkrLjouFx8zODMsNygtLisBCgoKBQUFDgUFDisZExkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAKgBLAMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAAAQIH/8QAHxABAQACAQQDAAAAAAAAAAAAAAERITECQVGhYYGR/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AOGigIqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALMZ3mT4maIAAAoACKgAoCCoANdOO6AgoCAAAACoAAAAACggAAAAAAAAAAAAAKEAEUAAAAAKFBAAAAAAVAAAAVFBAAAUEBQQAAAAAAAAAFAAAAAAAARUBUAFBAFEAAABQBAAAAAAAAAAAAAAAAAFWTN8IAAAAAAAgoCCoAKgAACoAAAAAAAAAAAAAAAAAAAAAoAAAAAAACKgAoAX9AEFAQAAAAVAAAXW/SAAAAAAAAAApLi5hdggAKAAAAAAgoIACgAgAAAAAAAAtxrGeN58oAAACggAAAAAAAKgAAAqLUAABRAAAAXPpAVAAAAAAAAAAVAAAAAAAAAAAAAAABUAAAAAAABbcoAAAqAAAAKCAoIAAKgAAC7Rrp6rJZO/IMgAAAAAAAAAAAAAAAAACoAAAAAAAAAAAAAAAAAAAAAAAC0EVFnPn4vcEFvP2gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKgAAA/9k=")
+ 			
+
 		}
 	</style>
 	<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
@@ -47,8 +57,9 @@
 			box.on('click', handleBoxClick);
 
 			// moves the Box to a new position on the screen along the X-Axis
-			function moveBoxTo(newPositionX) {
+			function moveBoxTo(newPositionX, newPositionY) {
 				box.css("left", newPositionX);
+				box.css("top", newPositionY);
 			}
 
 			// changes the text displayed on the Box
@@ -62,6 +73,14 @@
 			
 			// TODO 2 - Variable declarations 
 			
+			var positionX = 0;
+			var points = 0;
+			var speed = 10;
+			var positionY = 0;
+			var speedY = 10;
+			var boardHeight = jQuery(window).height();
+			
+
 
 			
 			/* 
@@ -70,17 +89,44 @@
 			turn it around! 
 			*/
 			function update() {
-				
+				positionX = positionX + speed
+				positionY = positionY + speedY
+				moveBoxTo(positionX, positionY);
 
-			};
+				if (positionX > boardWidth) {
+					speed = speed * -1;
+					
+
+				}
+
+				if (positionY > boardHeight) {
+					speedY = -speedY;
+				}
+
+
+				if (positionX < 0) {
+					speed = speed * -1;				}
+
+				if (positionY < 0) {
+					speedY = -speedY
+				}
+					
+					
+
+    				
+				
+			}
 
 			/* 
 			This Function will be called each time the box is clicked. Each time it is called,
 			it should increase the points total, increase the speed, and move the box to
 			the left side of the screen.
 			*/
-			function handleBoxClick() {
-				
+			function handleBoxClick(moveBoxTo) {
+				positionX = 0; 
+				points = points + 1;
+				changeBoxText(points);
+				speed = speed + 3
 
 
 			};
